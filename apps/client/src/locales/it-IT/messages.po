@@ -8,7 +8,7 @@ msgstr ""
 "Language: it\n"
 "Project-Id-Version: reactive-resume\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-10 05:50\n"
+"PO-Revision-Date: 2024-08-24 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Italian\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -894,7 +894,7 @@ msgstr "Principale"
 
 #: apps/client/src/pages/home/sections/features/index.tsx:59
 msgid "Manage multiple resumes"
-msgstr "Gestisci più curriculi"
+msgstr "Gestisci più curricula"
 
 #. The month and year should be uniform across all languages.
 #: apps/client/src/pages/builder/sidebars/left/dialogs/awards.tsx:71
@@ -1192,11 +1192,11 @@ msgstr "Ripristina zoom"
 #: apps/client/src/pages/dashboard/resumes/page.tsx:20
 #: apps/client/src/pages/dashboard/resumes/page.tsx:37
 msgid "Resumes"
-msgstr "Curriculi"
+msgstr "Curricula"
 
 #: apps/client/src/pages/home/sections/statistics/index.tsx:14
 msgid "Resumes Generated"
-msgstr "Curriculi generati"
+msgstr "Curricula generati"
 
 #: apps/client/src/pages/home/sections/features/index.tsx:105
 msgid "Rich in features, not in pricing."
