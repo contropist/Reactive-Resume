@@ -30,14 +30,14 @@ export class GoogleStrategy extends PassportStrategy(Strategy, "google") {
 
     let user: User | null = null;
 
-    if (!email) throw new BadRequestException();
+    if (!email) throw new BadRequestException(ErrorMessage.InvalidCredentials);
 
     try {
-      const user =
+      user =
         (await this.userService.findOneByIdentifier(email)) ??
-        (username && (await this.userService.findOneByIdentifier(username)));
+        (username ? await this.userService.findOneByIdentifier(username) : null);
 
-      if (!user) throw new Error("User not found.");
+      if (!user) throw new BadRequestException(ErrorMessage.InvalidCredentials);
 
       done(null, user);
     } catch {
