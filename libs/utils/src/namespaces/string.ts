@@ -1,6 +1,6 @@
 import { adjectives, animals, uniqueNamesGenerator } from "unique-names-generator";
 
-import { LayoutLocator, SortablePayload } from "./types";
+import type { LayoutLocator, SortablePayload } from "./types";
 
 export const getInitials = (name: string) => {
   // eslint-disable-next-line unicorn/better-regex
@@ -28,17 +28,6 @@ export const extractUrl = (string: string) => {
 
   const result = urlRegex.exec(string);
   return result ? result[0] : null;
-};
-
-export const kebabCase = (string?: string | null) => {
-  if (!string) return "";
-
-  return (
-    string
-      .match(/[A-Z]{2,}(?=[A-Z][a-z]+\d*|\b)|[A-Z]?[a-z]+\d*|[A-Z]|\d+/gu)
-      ?.join("-")
-      .toLowerCase() ?? ""
-  );
 };
 
 export const generateRandomName = () => {

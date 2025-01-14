@@ -1,10 +1,8 @@
-import {
+import type {
   Award,
   Certification,
   CustomSection,
   CustomSectionGroup,
-  Education,
-  Experience,
   Interest,
   Language,
   Project,
@@ -14,20 +12,20 @@ import {
   SectionWithItem,
   Skill,
   URL,
-  Volunteer,
 } from "@reactive-resume/schema";
+import { Education, Experience, Volunteer } from "@reactive-resume/schema";
 import { cn, isEmptyString, isUrl } from "@reactive-resume/utils";
 import get from "lodash.get";
 import React, { Fragment } from "react";
 
+import { BrandIcon } from "../components/brand-icon";
 import { Picture } from "../components/picture";
 import { useArtboardStore } from "../store/artboard";
-import { TemplateProps } from "../types/template";
+import type { TemplateProps } from "../types/template";
 
 const Header = () => {
   const basics = useArtboardStore((state) => state.resume.basics);
   const profiles = useArtboardStore((state) => state.resume.sections.profiles);
-  const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
 
   return (
     <div className="flex items-center justify-between space-x-4 border-b border-primary pb-5">
@@ -91,15 +89,7 @@ const Header = () => {
                   url={item.url}
                   label={item.username}
                   className="text-sm"
-                  icon={
-                    <img
-                      className="ph"
-                      width={fontSize}
-                      height={fontSize}
-                      alt={item.network}
-                      src={`https://cdn.simpleicons.org/${item.icon}`}
-                    />
-                  }
+                  icon={<BrandIcon slug={item.icon} />}
                 />
               </div>
             ))}

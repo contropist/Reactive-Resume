@@ -5,7 +5,7 @@
 services:
   # Database (Postgres)
   postgres:
-    image: postgres:latest
+    image: postgres:16-alpine
     restart: unless-stopped
     ports:
       - ${POSTGRES_PORT:-5432}:5432
@@ -52,7 +52,7 @@ services:
 
   # Chrome Browser (for printing and previews)
   chrome:
-    image: ghcr.io/browserless/chromium:latest
+    image: ghcr.io/browserless/chromium:v2.18.0 # Upgrading to newer versions causes issues
     restart: unless-stopped
     ports:
       - ${CHROME_PORT:-8080}:3000
@@ -60,8 +60,8 @@ services:
       TIMEOUT: 10000
       CONCURRENT: 10
       TOKEN: ${CHROME_TOKEN:-chrome_token}
-      EXIT_ON_HEALTH_FAILURE: true
-      PRE_REQUEST_HEALTH_CHECK: true
+      EXIT_ON_HEALTH_FAILURE: "true"
+      PRE_REQUEST_HEALTH_CHECK: "true"
 
 volumes:
   minio_data:

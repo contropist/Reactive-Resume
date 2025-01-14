@@ -1,10 +1,8 @@
-import {
+import type {
   Award,
   Certification,
   CustomSection,
   CustomSectionGroup,
-  Education,
-  Experience,
   Interest,
   Language,
   Project,
@@ -14,20 +12,20 @@ import {
   SectionWithItem,
   Skill,
   URL,
-  Volunteer,
 } from "@reactive-resume/schema";
+import { Education, Experience, Volunteer } from "@reactive-resume/schema";
 import { cn, isEmptyString, isUrl } from "@reactive-resume/utils";
 import get from "lodash.get";
 import React, { Fragment } from "react";
 
+import { BrandIcon } from "../components/brand-icon";
 import { Picture } from "../components/picture";
 import { useArtboardStore } from "../store/artboard";
-import { TemplateProps } from "../types/template";
+import type { TemplateProps } from "../types/template";
 
 const Header = () => {
   const basics = useArtboardStore((state) => state.resume.basics);
   const profiles = useArtboardStore((state) => state.resume.sections.profiles);
-  const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
 
   return (
     <div className="flex flex-col items-center justify-center space-y-2 pb-2 text-center">
@@ -61,7 +59,9 @@ const Header = () => {
             </a>
           </div>
         )}
+
         <Link url={basics.url} />
+
         {basics.customFields.map((item) => (
           <div key={item.id} className="flex items-center gap-x-1.5">
             <i className={cn(`ph ph-bold ph-${item.icon}`, "text-primary")} />
@@ -86,15 +86,7 @@ const Header = () => {
                   url={item.url}
                   label={item.username}
                   className="text-sm"
-                  icon={
-                    <img
-                      className="ph"
-                      width={fontSize}
-                      height={fontSize}
-                      alt={item.network}
-                      src={`https://cdn.simpleicons.org/${item.icon}`}
-                    />
-                  }
+                  icon={<BrandIcon slug={item.icon} />}
                 />
               </div>
             ))}
