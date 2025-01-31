@@ -1,4 +1,4 @@
-import { createBrowserRouter, createRoutesFromElements, Navigate, Route } from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, Navigate, Route } from "react-router";
 
 import { BackupOtpPage } from "../pages/auth/backup-otp/page";
 import { ForgotPasswordPage } from "../pages/auth/forgot-password/page";
@@ -14,23 +14,18 @@ import { DashboardLayout } from "../pages/dashboard/layout";
 import { ResumesPage } from "../pages/dashboard/resumes/page";
 import { SettingsPage } from "../pages/dashboard/settings/page";
 import { HomeLayout } from "../pages/home/layout";
-import { PrivacyPolicyPage } from "../pages/home/meta/privacy-policy/page";
 import { HomePage } from "../pages/home/page";
 import { publicLoader, PublicResumePage } from "../pages/public/page";
 import { Providers } from "../providers";
 import { AuthGuard } from "./guards/auth";
 import { GuestGuard } from "./guards/guest";
 import { authLoader } from "./loaders/auth";
+import { ErrorPage } from "../pages/public/error";
 
 export const routes = createRoutesFromElements(
-  <Route element={<Providers />}>
+  <Route element={<Providers />} errorElement={<ErrorPage />}>
     <Route element={<HomeLayout />}>
       <Route path="/" element={<HomePage />} />
-
-      <Route path="meta">
-        <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
-        <Route index element={<Navigate replace to="/" />} />
-      </Route>
     </Route>
 
     <Route path="auth">

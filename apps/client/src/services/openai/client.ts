@@ -12,10 +12,10 @@ export const openai = () => {
     );
   }
 
-  if(baseURL) {
+  if (baseURL) {
     return new OpenAI({
-      baseURL,
       apiKey,
+      baseURL,
       dangerouslyAllowBrowser: true,
     });
   }

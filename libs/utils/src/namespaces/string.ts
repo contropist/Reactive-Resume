@@ -1,6 +1,8 @@
+import sanitizeHtml from "sanitize-html";
+import type { Config as UniqueNamesConfig } from "unique-names-generator";
 import { adjectives, animals, uniqueNamesGenerator } from "unique-names-generator";
 
-import { LayoutLocator, SortablePayload } from "./types";
+import type { LayoutLocator, SortablePayload } from "./types";
 
 export const getInitials = (name: string) => {
   // eslint-disable-next-line unicorn/better-regex
@@ -30,23 +32,13 @@ export const extractUrl = (string: string) => {
   return result ? result[0] : null;
 };
 
-export const kebabCase = (string?: string | null) => {
-  if (!string) return "";
-
-  return (
-    string
-      .match(/[A-Z]{2,}(?=[A-Z][a-z]+\d*|\b)|[A-Z]?[a-z]+\d*|[A-Z]|\d+/gu)
-      ?.join("-")
-      .toLowerCase() ?? ""
-  );
-};
-
-export const generateRandomName = () => {
+export const generateRandomName = (options?: Omit<UniqueNamesConfig, "dictionaries">) => {
   return uniqueNamesGenerator({
     dictionaries: [adjectives, adjectives, animals],
     style: "capital",
     separator: " ",
     length: 3,
+    ...options,
   });
 };
 
@@ -63,4 +55,96 @@ export const parseLayoutLocator = (payload: SortablePayload | null): LayoutLocat
   const [page, column] = payload.containerId.split(".").map(Number);
 
   return { page, column, section };
+};
+
+export const sanitize = (html: string, options?: sanitizeHtml.IOptions) => {
+  const allowedTags = (options?.allowedTags ?? []) as string[];
+
+  return sanitizeHtml(html, {
+    ...options,
+    allowedTags: [
+      ...allowedTags,
+      "a",
+      "abbr",
+      "address",
+      "article",
+      "aside",
+      "b",
+      "bdi",
+      "bdo",
+      "blockquote",
+      "br",
+      "caption",
+      "cite",
+      "code",
+      "col",
+      "colgroup",
+      "data",
+      "dd",
+      "dfn",
+      "div",
+      "dl",
+      "dt",
+      "em",
+      "figcaption",
+      "figure",
+      "footer",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "h6",
+      "header",
+      "hgroup",
+      "hr",
+      "i",
+      "img",
+      "kbd",
+      "li",
+      "main",
+      "main",
+      "mark",
+      "nav",
+      "ol",
+      "p",
+      "pre",
+      "q",
+      "rb",
+      "rp",
+      "rt",
+      "rtc",
+      "ruby",
+      "s",
+      "samp",
+      "section",
+      "small",
+      "span",
+      "strong",
+      "sub",
+      "sup",
+      "table",
+      "tbody",
+      "td",
+      "tfoot",
+      "th",
+      "thead",
+      "time",
+      "tr",
+      "u",
+      "ul",
+      "var",
+      "wbr",
+    ],
+    allowedAttributes: {
+      ...options?.allowedAttributes,
+      "*": ["class", "style"],
+      a: ["href", "target"],
+      img: ["src", "alt"],
+    },
+    allowedStyles: {
+      ...options?.allowedStyles,
+      "*": { "text-align": [/^left$/, /^right$/, /^center$/, /^justify$/] },
+    },
+  });
 };
